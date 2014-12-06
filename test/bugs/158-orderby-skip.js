@@ -40,4 +40,12 @@ describe("Bug #158: order by with skip returning 0 results", function () {
       results[0].name.should.equal('hasmany find pop');
     });
   });
+  // Workaround as suggested by phpnode
+  it('should return one record when using ORDER BY and SKIP and LIMIT', function () {
+    return this.db.query('SELECT name, @rid FROM customerTable WHERE name.toLowerCase() = "hasmany find pop" ORDER BY @rid ASC SKIP 1 LIMIT 2147483646')
+    .then(function (results) {
+      results.length.should.equal(1);
+      results[0].name.should.equal('hasmany find pop');
+    });
+  });
 });
