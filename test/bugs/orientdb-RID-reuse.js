@@ -1,14 +1,14 @@
 describe.only("Bug orientdb: RID reuse", function () {
   this.timeout(20000);
   before(function () {
-    return CREATE_TEST_DB(this, 'testdb_insert_order', 'plocal')  // plocal works, memory breaks
+    return CREATE_TEST_DB(this, 'testdb_insert_order', 'memory')  // 1.7.* plocal works, memory breaks
     .bind(this)
     .then(function () {
       return this.db.class.create('Person', 'V');
     });
   });
   after(function () {
-    return DELETE_TEST_DB('testdb_insert_order', 'plocal');
+    return DELETE_TEST_DB('testdb_insert_order', 'memory');
   });
   
   describe("RID\'s position increase with inserts", function () {
